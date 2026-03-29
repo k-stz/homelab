@@ -173,7 +173,7 @@ minecraftServer:
   # This is the server name shown in the in-game server list.
   serverName: "Dedicated Server"
   # Check accounts against Minecraft account service.
-  onlineMode: true
+  onlineMode: false
   # Maximum number of threads the server tries to use. If set to 0 or removed then it uses as many as possible.
   maxThreads: 8
   # Cheat like commands can be used.
