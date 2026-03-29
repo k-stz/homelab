@@ -1,0 +1,24 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Application
+metadata:
+  name: app-of-appsets
+  namespace: openshift-gitops
+spec:
+  destination:
+    namespace: homelab-target-ns
+    server: 'https://kubernetes.default.svc'
+  project: default
+  source:
+    helm:
+      valueFiles:
+        - values.yaml
+    path: gitops-bootstrap
+    repoURL: 'https://github.com/k-stz/homelab.git'
+    targetRevision: HEAD
+  syncPolicy:
+    automated:
+      prune: false
+      selfHeal: false
+      enabled: false
+    syncOptions:
+      - CreateNamespace=true

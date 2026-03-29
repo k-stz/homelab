@@ -1,0 +1,12 @@
+apiVersion: v1
+name: minecraft-bedrock
+version: 0.1.0
+appVersion: SeeValues
+home: https://github.com/k-stz/homelab/
+description: Example helmchart
+keywords:
+- homelab
+sources:
+- https://github.com/k-stz/homelab.git
+maintainers:
+- name: k-stz

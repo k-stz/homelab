@@ -1,6 +1,6 @@
 apiVersion: v2
-name: bootstrap
-description: A Helm chart for Kubernetes
+name: gitops-bootstrap
+description: Chart to bootstrap the homelab ocp cluster
 
 # A chart can be either an 'application' or a 'library' chart.
 #

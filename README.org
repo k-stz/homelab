@@ -1,5 +1,8 @@
 #+title: Readme
 
+After installing openshift-gitops operator (argocd), apply the Argocd-Application in the file =gitops-bootstrap-application.yaml=
+The resulting appset will apply the helmchart in "gitops-bootstrap" which creates an argocd-application for each folder in gitops/, treating each as a helmchart.
+
 * ArgoCD Bootstrap
 
 After installing openshift-gitops access the hardcoded =admin= users password in the secrets =openshift-gitops-cluster=. (provided the gitops-operator was installed in the openshift-gitops namespace):
