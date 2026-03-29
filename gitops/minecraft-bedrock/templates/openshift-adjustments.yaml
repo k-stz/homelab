@@ -1,0 +1,15 @@
+# because the deployment uses securitContext with runAsUser and no serviceaccount
+# we need to grant anyuid scc to the default serviceaccount
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding # does it need to be a clusterRoleBinding...?
+metadata:
+  name: default-sa-allow-anyuid
+  namespace: homelab-minecraft-bedrock # Replace with your target namespace
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: system:openshift:scc:anyuid
+subjects:
+- kind: ServiceAccount
+  name: default
+  namespace: homelab-minecraft-bedrock  # Replace with your target namespace
