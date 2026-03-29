@@ -181,7 +181,8 @@ minecraftServer:
   # Enable emit server telemetry.
   emitServerTelemetry: false
   # Enable lan visibility.
-  enableLanVisibility: false
+  # TODO: this might be necessary, to see in lan
+  enableLanVisibility: true
   # IPv4 UDP port of server. If using a nodePort, set serverPort and nodePort to the same value (e.g. 30000) so ping time displays.
   serverPort: 30001
   # type of kubernetes service to use
