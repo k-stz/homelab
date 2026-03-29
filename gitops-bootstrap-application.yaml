@@ -12,7 +12,7 @@ spec:
     helm:
       valueFiles:
         - values.yaml
-    path: gitops-bootstrap
+    path: bootstrap-gitops
     repoURL: 'https://github.com/k-stz/homelab.git'
     targetRevision: HEAD
   syncPolicy:
