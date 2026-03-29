@@ -1,0 +1,40 @@
+#+title: Readme
+
+* ArgoCD Bootstrap
+
+After installing openshift-gitops access the hardcoded =admin= users password in the secrets =openshift-gitops-cluster=. (provided the gitops-operator was installed in the openshift-gitops namespace):
+
+#+begin_example bash
+oc get secret openshift-gitops-cluster -n openshift-gitops -o jsonpath='{.data.admin\.password}' | base64
+#+end_example
+
+Login to the frontend with the user=admin and this password.
+
+** RBAC for other users
+
+To see and be able to change something in the argocd frontend we need the access rights. RBAC for argocd instance is configured in this configmap:
+#+begin_example yaml
+oc get argocd openshift-gitops -n openshift-gitops -o yaml | grep rbac -A 5
+  rbac:
+    defaultPolicy: ""
+    policy: |
+      g, system:cluster-admins, role:admin
+      g, cluster-admins, role:admin
+    scopes: '[groups]'
+#+end_example
+You have a few options:
+- add your user with a "u, my-user, role:admin" entry
+- login with kube:admin
+- or simply add your user to the "cluster-admins" group:
+#+begin_example yaml
+0apiVersion: user.openshift.io/v1
+kind: Group
+metadata:
+  name: cluster-admins
+users:
+  - admin
+#+end_example
+
+** AppSet
+The appset.yaml in this folder will generate an ArgoCD-Application for each folder in =gitops/= simply apply it once.
+
