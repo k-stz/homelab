@@ -13,22 +13,19 @@ spec:
           - path: gitops/*
   template:
     metadata:
-      # {{path.basename}} extracts the folder name (e.g., 'homelab' or 'nextcloud')
-      name: '{{path.basename}}'
+      name: '{{ `{{path.basename}}` }}'
     spec:
       project: default
       source:
         repoURL: https://github.com/k-stz/homelab.git
         targetRevision: HEAD
-        path: '{{path}}'
+        path: '{{ `{{path}}` }}'
         helm:
           valueFiles:
             - values.yaml
       destination:
         server: https://kubernetes.default.svc
-        # You can keep a static namespace or use {{path.basename}} if 
-        # you want each app in its own namespace
-        namespace: homelab-'{{path.basename}}' 
+        namespace: 'homelab-{{ `{{path.basename}}` }}' 
       syncPolicy:
         automated:
           prune: true
