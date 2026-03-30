@@ -161,7 +161,7 @@ minecraftServer:
   # Define this if you want a specific map generation seed.
   levelSeed:
   # One of: creative, survival, adventure, spectator
-  gameMode: survival
+  gameMode: creative
   # Permission level for new players joining for the first time (visitor, member, operator)
   defaultPermission: member
   # After a player has idled for this many minutes they get kicked.
@@ -195,7 +195,7 @@ minecraftServer:
   # externalTrafficPolicy: Cluster
   ## Enable SSH for console access (eg. needed for backup containers like https://github.com/Kaiede/Bedrockifier)
   # Please note: if you use this together with serviceType LoadBAlancer, make sure you have at least Kubernetes v1.26
-  enableSSH: false
+  enableSSH: true
   ## Set the port used for SSH if the serviceType is NodePort
   # nodePortSSH:
   ## Set the port used for SSH by the service (defaults to 2222)
