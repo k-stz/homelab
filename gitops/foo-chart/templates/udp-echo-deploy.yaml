@@ -1,0 +1,61 @@
+kind: Deployment
+apiVersion: apps/v1
+metadata:
+  name: udp-echo
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: udp-echo
+  template:
+    metadata:
+      labels:
+        app: udp-echo
+    spec:
+      containers:
+        - name: echo
+          image: samos123/udp-echo-server
+          ports:
+            - containerPort: 33333
+              protocol: UDP
+              name: udp-echo
+          imagePullPolicy: IfNotPresent
+
+
+---
+# works: 
+# nc -uv udp-echo-clusterip.homelab-foo-chart.svc.cluster.local 33333 !
+apiVersion: v1
+kind: Service
+metadata:
+  name: udp-echo-clusterip
+  namespace: homelab-foo-chart
+spec:
+  selector:
+    app: udp-echo
+  ports:
+    - protocol: UDP
+      port: 33333
+      targetPort: 33333
+  type: ClusterIP
+---
+# works:
+# outside cluster: nc -uv <workerip> 322222
+# Inside the clsuter "ports[0].port" is used so 33333:
+# nc -uv udp-echo-nodeport.homelab-foo-chart.svc.cluster.local 33333
+apiVersion: v1
+kind: Service
+metadata:
+  name: udp-echo-nodeport
+spec:
+  selector:
+    app: udp-echo
+  ports:
+    - protocol: UDP
+      port: 33333   
+      targetPort: 33333
+      # forced to be in range: 30000-32..., if empty randomly assigned
+      nodePort: 32222
+  type: NodePort
+
+
