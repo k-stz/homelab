@@ -1,0 +1,27 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: 'udp-test'
+spec:
+  selector:
+    matchLabels:
+      app: udp-test
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: udp-test
+    spec:
+      containers:
+        - name: container
+          image: 'image-registry.openshift-image-registry.svc:5000/default/gosrv@sha256:5cfe73162f3710d5d027e10219a43c74b6b38dbc43f4b8e40ec9dcf7972500d8'
+          # -e /bin/cat will echo back the udp payload to the client!
+          command: ["/usr/bin/nc", "-lup", "5000", "-e", "/bin/cat"]
+          ports:
+            - containerPort: 8080
+              protocol: TCP
+            - containerPort: 5000
+              protocol: UDP
+              name: nc-udp
+---
+
