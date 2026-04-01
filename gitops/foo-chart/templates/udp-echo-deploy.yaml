@@ -57,5 +57,25 @@ spec:
       # forced to be in range: 30000-32..., if empty randomly assigned
       nodePort: 32222
   type: NodePort
-
-
+---
+# cluster internal works
+# nv -uv udp-echo-lb.homelab-foo-chart.svc.cluster.local 33333
+#
+# cluster external:
+# it will get assigned a vip, in this case pinned by the annotation to 192.168.8.225
+# nc -uv 192.168.8.225 33333 => WORKS
+apiVersion: v1
+kind: Service
+metadata:
+  name: udp-echo-lb
+  annotations:
+    # This tells MetalLB to use this specific IP from your pool. TODO test
+    metallb.universe.tf/loadBalancerIPs: 192.168.8.225
+spec:
+  selector:
+    app: udp-echo
+  ports:
+    - port: 33333
+      protocol: UDP
+      targetPort: 33333
+  type: LoadBalancer
