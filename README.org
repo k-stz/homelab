@@ -41,3 +41,7 @@ users:
 ** AppSet
 The appset.yaml in this folder will generate an ArgoCD-Application for each folder in =gitops/= simply apply it once.
 
+
+* Architecture
+
+[[docu/nuc-ocp.drawio.svg]]
