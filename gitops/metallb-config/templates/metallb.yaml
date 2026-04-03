@@ -1,0 +1,34 @@
+# Manages
+# - metallb controller
+# - "speaker" daemonset
+#    - The speaker Pods will advertise to cluster external network components which node
+#      is the leader and owner of the LoadBalancer-type Service VIP
+apiVersion: metallb.io/v1beta1
+kind: MetalLB
+metadata:
+  name: metallb
+  namespace: metallb-system
+---
+# Range of IPs that meatllb will managed and map to LoadBalancer type Services as their
+# cluster-external VIP
+apiVersion: metallb.io/v1beta1
+kind: IPAddressPool
+metadata:
+  name: my-ip-addresspool
+  namespace: metallb-system
+spec:
+  addresses:
+    - 192.168.8.220-192.168.8.230
+  autoAssign: true
+  avoidBuggyIPs: true
+---
+# Configures MetalLB to use L2 Mode:
+# Cluster external announements (of whose node MAC address shall map to the VIP) is down using GARP (gratuitous ARP)
+apiVersion: metallb.io/v1beta1
+kind: L2Advertisement
+metadata:
+  name: homelab-l2
+  namespace: metallb-system
+spec:
+  ipAddressPools:
+    - my-ip-addresspool

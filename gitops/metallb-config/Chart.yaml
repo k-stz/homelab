@@ -1,0 +1,12 @@
+apiVersion: v1
+name: metallb-config
+version: 0.1.0
+appVersion: SeeValues
+home: https://github.com/k-stz/homelab/
+description: Config for metallb operator resource configuration for homelab cluster
+keywords:
+- homelab
+sources:
+- https://github.com/k-stz/homelab.git
+maintainers:
+- name: k-stz
