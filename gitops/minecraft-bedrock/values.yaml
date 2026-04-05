@@ -186,7 +186,7 @@ minecraftServer:
   # IPv4 UDP port of server. If using a nodePort, set serverPort and nodePort to the same value (e.g. 30000) so ping time displays.
   serverPort: 30001
   # type of kubernetes service to use
-  serviceType: NodePort
+  serviceType: LoadBalancer
   ## Set the port used if the serviceType is NodePort
   nodePort: 30001
   loadBalancerIP:
@@ -250,6 +250,9 @@ deploymentAnnotations: {}
 
 deploymentLables: {}
 
-serviceAnnotations: {}
+serviceAnnotations:
+# this ensures in metallb that service get specific vip
+  metallb.universe.tf/loadBalancerIPs: 192.168.8.222
+
 
 serviceLables: {}
