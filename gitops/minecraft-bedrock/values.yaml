@@ -251,8 +251,8 @@ deploymentAnnotations: {}
 deploymentLables: {}
 
 serviceAnnotations:
-# this ensures in metallb that service get specific vip
-  metallb.universe.tf/loadBalancerIPs: 192.168.8.222
+  # this ensures in metallb that service get specific vip
+  metallb.io/loadBalancerIPs: 192.168.8.222
 
 
 serviceLables: {}
